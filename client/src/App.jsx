@@ -25,11 +25,11 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/jobs/:id" element={<JobDetails />} />
         
-        {/* User Routes */}
-        <Route path="/my-applications" element={<MyApplications />} /> {/* <-- ADDED ROUTE */}
+        <Route path="/my-applications" element={<MyApplications />} />
         
         {/* Recruiter Routes */}
-        <Route path="/create-job" element={<CreateJob />} />
+        {/* FIX: Updated this path to match your dashboard button exactly! */}
+        <Route path="/recruiter/create-job" element={<CreateJob />} />
         <Route path="/recruiter/dashboard" element={<RecruiterDashboard />} />
         <Route path="/recruiter/jobs/:id/applicants" element={<JobApplicants />} />
       </Routes>

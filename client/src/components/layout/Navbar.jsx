@@ -48,7 +48,7 @@ const Navbar = () => {
                       My Jobs
                     </Link>
                     
-                    <Link to="/create-job" className="inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 transition-colors">
+                    <Link to="/recruiter/create-job" className="inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 transition-colors">
                       Post a Job
                     </Link>
                   </div>

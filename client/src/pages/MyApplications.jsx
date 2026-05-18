@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
-import { Briefcase, MapPin, Calendar, Clock, ArrowRight } from 'lucide-react';
+import { Briefcase, MapPin, Calendar, ArrowRight } from 'lucide-react';
 import toast from 'react-hot-toast';
+import { ApplicationSkeleton } from '../components/SkeletonLoader';
 
 const MyApplications = () => {
   const [applications, setApplications] = useState([]);
@@ -14,7 +15,6 @@ const MyApplications = () => {
   useEffect(() => {
     const fetchMyApplications = async () => {
       try {
-        // We added the Authorization header here!
         const config = {
           headers: { Authorization: `Bearer ${getToken()}` }
         };
@@ -26,47 +26,41 @@ const MyApplications = () => {
       } finally {
         setIsLoading(false);
       }
-
-      <div className="flex gap-3 mt-4">
-        <Link
-          to={`/recruiter/jobs/${job._id}/applicants`}
-          className="inline-flex items-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 transition-colors"
-        >
-          <Users className="w-4 h-4 mr-2" />
-          View Applicants
-        </Link>
-
-        {/* NEW DELETE BUTTON */}
-        <button
-          onClick={() => handleDelete(job._id)}
-          className="inline-flex items-center px-4 py-2 border border-red-300 shadow-sm text-sm font-medium rounded-md text-red-700 bg-white hover:bg-red-50 transition-colors"
-        >
-          <Trash2 className="w-4 h-4 mr-2" />
-          Delete
-        </button>
-      </div>
     };
 
     fetchMyApplications();
   }, []);
 
-  // Helper function to color-code the status badge
+  // Helper function to color-code the status badge dynamically
   const getStatusColor = (status) => {
     switch (status) {
-      case 'applied': return 'bg-blue-100 text-blue-800';
-      case 'reviewing': return 'bg-yellow-100 text-yellow-800';
-      case 'interview scheduled': return 'bg-purple-100 text-purple-800';
-      case 'shortlisted': return 'bg-indigo-100 text-indigo-800';
-      case 'accepted': return 'bg-green-100 text-green-800';
-      case 'rejected': return 'bg-red-100 text-red-800';
-      default: return 'bg-gray-100 text-gray-800';
+      case 'applied': return 'bg-blue-100 text-blue-800 border-blue-200';
+      case 'reviewing': return 'bg-yellow-100 text-yellow-800 border-yellow-200';
+      case 'interview scheduled': return 'bg-purple-100 text-purple-800 border-purple-200';
+      case 'shortlisted': return 'bg-indigo-100 text-indigo-800 border-indigo-200';
+      case 'accepted': return 'bg-green-100 text-green-800 border-green-200';
+      case 'rejected': return 'bg-red-100 text-red-800 border-red-200';
+      default: return 'bg-gray-100 text-gray-800 border-gray-200';
     }
   };
 
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-gray-50 flex justify-center items-center">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+      <div className="min-h-screen bg-gray-50 py-10 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-5xl mx-auto">
+          {/* Matching Header Placeholder */}
+          <div className="animate-pulse mb-8 space-y-3">
+            <div className="h-9 bg-gray-200 rounded w-1/4"></div>
+            <div className="h-4 bg-gray-200 rounded w-2/5"></div>
+          </div>
+
+          {/* Stack of 3 Pulsing Cards */}
+          <div className="space-y-4">
+            <ApplicationSkeleton />
+            <ApplicationSkeleton />
+            <ApplicationSkeleton />
+          </div>
+        </div>
       </div>
     );
   }
@@ -125,7 +119,7 @@ const MyApplications = () => {
 
                     {/* Status Badge & Link */}
                     <div className="flex items-center gap-4 sm:flex-col sm:items-end">
-                      <span className={`px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full capitalize ${getStatusColor(app.status)}`}>
+                      <span className={`px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full border capitalize ${getStatusColor(app.status)}`}>
                         {app.status}
                       </span>
 

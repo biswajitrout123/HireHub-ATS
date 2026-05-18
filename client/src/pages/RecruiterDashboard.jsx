@@ -4,6 +4,7 @@ import axios from 'axios';
 import { Briefcase, MapPin, Calendar, Users, Trash2, Plus } from 'lucide-react';
 import toast from 'react-hot-toast';
 import JobCardSkeleton from '../components/layout/JobCardSkeleton';
+import RecruiterAnalytics from '../components/RecruiterAnalytics'; // Added Import
 
 const RecruiterDashboard = () => {
   const [jobs, setJobs] = useState([]);
@@ -43,9 +44,10 @@ const RecruiterDashboard = () => {
     <div className="min-h-screen bg-gray-50 py-10 px-4 sm:px-6 lg:px-8">
       <div className="max-w-6xl mx-auto">
         
+        {/* Header Section */}
         <div className="flex justify-between items-center mb-8">
           <div>
-            <h1 className="text-3xl font-bold text-gray-900">My Job Postings</h1>
+            <h1 className="text-3xl font-bold text-gray-900">Recruiter Dashboard</h1>
             <p className="mt-2 text-sm text-gray-600">Manage your active listings and view applicants.</p>
           </div>
           <Link
@@ -56,6 +58,14 @@ const RecruiterDashboard = () => {
             Post New Job
           </Link>
         </div>
+
+        {/* ======================================================== */}
+        {/* NEW: DASHBOARD ANALYTICS CHART                           */}
+        {/* ======================================================== */}
+        <RecruiterAnalytics />
+
+        {/* Section Title for Jobs */}
+        <h2 className="text-2xl font-bold text-gray-900 mb-6">My Job Postings</h2>
 
         {/* LOADING STATE: Skeletons but with the Recruiter layout */}
         {isLoading ? (
