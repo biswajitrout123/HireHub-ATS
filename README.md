@@ -8,12 +8,16 @@
 
 SmartJobPortal is a production-ready Applicant Tracking System (ATS) built with the MERN stack. It bridges the gap between job seekers and recruiters through a secure, interactive, and data-driven platform. 
 
+## 🌐 Live Demo
+* **Frontend Application:** [Insert your Vercel Link Here]
+* **Backend API:** [Insert your Render Link Here]
+
 ## ✨ Key Features
 
 ### 🏢 For Recruiters (Enterprise Dashboard)
 * **Pipeline Analytics:** Live visual data dashboards using **Recharts** to track application statuses (Applied, Shortlisted, Hired) across all active job postings.
 * **Role-Based Access Control (RBAC):** Secure recruiter-only routes and actions protected by JWT middleware.
-* **Dynamic Candidate Management:** View applicants, download PDF resumes, and seamlessly move candidates through the hiring pipeline via Optimistic UI updates.
+* **Dynamic Candidate Management:** View applicants, download PDF resumes, and seamlessly move candidates through the hiring pipeline.
 * **Job Posting Engine:** Full CRUD functionality to create, read, update, and completely delete job listings.
 
 ### 🧑‍💻 For Job Seekers
@@ -21,14 +25,14 @@ SmartJobPortal is a production-ready Applicant Tracking System (ATS) built with 
 * **Real-Time Status Tracking:** A dedicated "My Applications" portal allowing users to track where they stand in the hiring process via dynamic status badges.
 * **Smart Protections:** Backend MongoDB indexing prevents users from spamming or submitting duplicate applications for the same role.
 
-## 🛠️ Tech Stack
+## 🛠️ Tech Stack & Architecture
 
 **Frontend (Client)**
 * React.js (Hooks, Context)
-* React Router DOM (Dynamic Routing)
-* Tailwind CSS (Responsive UI/UX)
+* Vite (Build Tool)
+* Tailwind CSS (Mobile-First Responsive UI/UX)
 * Recharts (Data Visualization)
-* Axios (HTTP Client)
+* Axios (HTTP Client with Custom Interceptors)
 
 **Backend (Server)**
 * Node.js & Express.js (RESTful API architecture)
@@ -37,7 +41,13 @@ SmartJobPortal is a production-ready Applicant Tracking System (ATS) built with 
 * ImageKit API (Cloud File Storage)
 * Multer (Multipart/form-data parsing)
 
-## ⚙️ Getting Started
+## 🧠 Advanced Engineering Highlights
+* **DRY API Layer:** Centralized Axios Interceptors automatically inject JWT tokens into headers and manage base URLs, eliminating redundant fetch logic across components.
+* **Global Error Handling:** Smart response interceptors catch `401 Unauthorized` token expirations and network failures, automatically securing user sessions and triggering UI toast notifications.
+* **Component Modularity:** Complex UI blocks (like Dashboard logic and Job Cards) are isolated into independent, reusable React components.
+* **Strict Validation:** Multi-tier file validation ensures only properly sized PDFs are processed before hitting the cloud storage APIs.
+
+## ⚙️ Getting Started (Local Setup)
 
 Follow these instructions to set up the project locally on your machine.
 
