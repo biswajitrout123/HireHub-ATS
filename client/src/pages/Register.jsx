@@ -23,8 +23,8 @@ const Register = () => {
     setIsLoading(true);
 
     try {
-      // Sending data to your backend running on port 3000
-      const response = await axios.post('http://localhost:3000/api/auth/register', formData);
+      // FIXED: Using the dynamic Environment Variable instead of hardcoded localhost
+      const response = await axios.post(import.meta.env.VITE_API_URL + '/api/auth/register', formData);
       
       toast.success('Account created successfully!');
       

@@ -25,7 +25,8 @@ const Login = () => {
     setIsLoading(true);
 
     try {
-      const response = await axios.post('http://localhost:3000/api/auth/login', formData);
+      // FIXED: Replaced localhost with the dynamic Environment Variable
+      const response = await axios.post(import.meta.env.VITE_API_URL + '/api/auth/login', formData);
       
       // Look here! We pass the user data and token directly to context for an instant update
       const userData = response.data.user || response.data.data; 
