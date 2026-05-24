@@ -3,17 +3,16 @@ import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { MapPin, DollarSign, ArrowLeft, UploadCloud, CheckCircle, FileText } from 'lucide-react';
 import toast from 'react-hot-toast';
-import { AuthContext } from '../context/AuthContext'; // <-- IMPORT AUTH CONTEXT
+import { AuthContext } from '../context/AuthContext'; 
 
 const JobDetails = () => {
   const { id } = useParams();
   const navigate = useNavigate();
-  const { user } = useContext(AuthContext); // <-- GET CURRENT USER ROLE
+  const { user } = useContext(AuthContext); 
   
   const [job, setJob] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   
-  // Application State
   const [resume, setResume] = useState(null);
   const [isApplying, setIsApplying] = useState(false);
   const [hasApplied, setHasApplied] = useState(false);
@@ -21,7 +20,8 @@ const JobDetails = () => {
   useEffect(() => {
     const fetchJobDetails = async () => {
       try {
-        const response = await axios.get(`http://localhost:3000/api/jobs/${id}`);
+        // FIXED: Replaced localhost with the dynamic Environment Variable
+        const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/jobs/${id}`);
         setJob(response.data.data);
       } catch (error) {
         toast.error("Failed to load job details");
@@ -51,15 +51,16 @@ const JobDetails = () => {
     }
 
     setIsApplying(true);
-    const token = localStorage.getItem('token'); // Grab Token
+    const token = localStorage.getItem('token'); 
     const formData = new FormData();
     formData.append('resume', resume);
 
     try {
-      await axios.post(`http://localhost:3000/api/applications/jobs/${id}/apply`, formData, {
+      // FIXED: Replaced localhost with the dynamic Environment Variable
+      await axios.post(`${import.meta.env.VITE_API_URL}/api/applications/jobs/${id}/apply`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
-          'Authorization': `Bearer ${token}` // Attach Token
+          'Authorization': `Bearer ${token}` 
         },
       });
       
@@ -84,7 +85,6 @@ const JobDetails = () => {
     <div className="min-h-screen bg-gray-50 py-10 px-4 sm:px-6 lg:px-8">
       <div className="max-w-4xl mx-auto">
         
-        {/* Back Button */}
         <button 
           onClick={() => navigate('/dashboard')}
           className="inline-flex items-center text-sm font-medium text-gray-500 hover:text-gray-900 mb-6 transition-colors"
@@ -93,7 +93,6 @@ const JobDetails = () => {
           Back to Jobs
         </button>
 
-        {/* Job Header Card */}
         <div className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden mb-6">
           <div className="p-8 border-b border-gray-100">
             <h1 className="text-3xl font-bold text-gray-900 mb-2">{job.title}</h1>
@@ -119,7 +118,6 @@ const JobDetails = () => {
           </div>
         </div>
 
-        {/* CONDITIONAL RENDER: Only show this box if the user is NOT a recruiter */}
         {user?.role !== 'recruiter' && (
           <div className="bg-blue-50 rounded-xl border border-blue-100 p-8 flex flex-col md:flex-row items-center justify-between">
             <div>
