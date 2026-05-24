@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import api from '../api/axios'; // 🌟 NEW: Using our clean interceptor!
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 import { Briefcase, Users, CheckCircle } from 'lucide-react';
 
@@ -9,8 +9,8 @@ const RecruiterAnalytics = () => {
   useEffect(() => {
     const fetchAnalytics = async () => {
       try {
-        const config = { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } };
-        const res = await axios.get('http://localhost:3000/api/applications/analytics', config);
+        // 🌟 NEW: Look how incredibly clean this request is now!
+        const res = await api.get('/applications/analytics');
         setData(res.data);
       } catch (error) {
         console.error("Failed to load analytics");
@@ -25,7 +25,7 @@ const RecruiterAnalytics = () => {
     <div className="mb-10 space-y-6">
       <h2 className="text-2xl font-bold text-gray-900">Pipeline Analytics</h2>
       
-      {/* Top Stats Cards */}
+      {/* Top Stats Cards - Fully Responsive Stack */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         <div className="bg-white p-6 rounded-xl border border-gray-100 shadow-sm flex items-center gap-4">
           <div className="p-4 bg-blue-50 text-blue-600 rounded-lg"><Briefcase className="w-8 h-8"/></div>
@@ -52,7 +52,7 @@ const RecruiterAnalytics = () => {
         </div>
       </div>
 
-      {/* The Recharts Bar Chart */}
+      {/* The Recharts Bar Chart - Protected by ResponsiveContainer */}
       <div className="bg-white p-6 rounded-xl border border-gray-100 shadow-sm h-96">
         <h3 className="text-lg font-bold text-gray-800 mb-6">Candidate Pipeline Distribution</h3>
         <ResponsiveContainer width="100%" height="100%">

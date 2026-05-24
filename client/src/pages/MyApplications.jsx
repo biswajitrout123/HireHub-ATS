@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import axios from 'axios';
+import api from '../api/axios'; // 🌟 NEW: Importing our custom Axios interceptor
 import { Briefcase, MapPin, Calendar, ArrowRight } from 'lucide-react';
 import toast from 'react-hot-toast';
 import { ApplicationSkeleton } from '../components/SkeletonLoader';
@@ -9,17 +9,15 @@ const MyApplications = () => {
   const [applications, setApplications] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
-  // Helper to get token for API calls
-  const getToken = () => localStorage.getItem('token') || '';
+  // 🗑️ REMOVED: getToken helper function is no longer needed!
 
   useEffect(() => {
     const fetchMyApplications = async () => {
       try {
-        const config = {
-          headers: { Authorization: `Bearer ${getToken()}` }
-        };
-
-        const response = await axios.get('http://localhost:3000/api/applications/me', config);
+        // 🗑️ REMOVED: Manual header config is gone!
+        // 🌟 NEW: Just the route path. The interceptor handles the base URL and Token!
+        const response = await api.get('/applications/me');
+        
         setApplications(response.data.data);
       } catch (error) {
         toast.error("Failed to load your applications");

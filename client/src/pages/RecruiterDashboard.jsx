@@ -1,22 +1,22 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import axios from 'axios';
+import api from '../api/axios'; // 🌟 NEW: Using our interceptor
 import { Briefcase, MapPin, Calendar, Users, Trash2, Plus } from 'lucide-react';
 import toast from 'react-hot-toast';
 import JobCardSkeleton from '../components/layout/JobCardSkeleton';
-import RecruiterAnalytics from '../components/RecruiterAnalytics'; // Added Import
+import RecruiterAnalytics from '../components/RecruiterAnalytics';
 
 const RecruiterDashboard = () => {
   const [jobs, setJobs] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
-  const getToken = () => localStorage.getItem('token') || '';
+  // 🗑️ REMOVED: getToken helper is gone!
 
   useEffect(() => {
     const fetchMyJobs = async () => {
       try {
-        const config = { headers: { Authorization: `Bearer ${getToken()}` } };
-        const response = await axios.get('http://localhost:3000/api/jobs/recruiter/me', config);
+        // 🌟 NEW: Look how clean this GET request is now!
+        const response = await api.get('/jobs/recruiter/me');
         setJobs(response.data.data);
       } catch (error) {
         toast.error("Failed to load your job postings");
@@ -30,8 +30,9 @@ const RecruiterDashboard = () => {
   const handleDelete = async (jobId) => {
     if (window.confirm("Are you sure you want to completely delete this job posting? This action cannot be undone.")) {
       try {
-        const config = { headers: { Authorization: `Bearer ${getToken()}` } };
-        await axios.delete(`http://localhost:3000/api/jobs/${jobId}`, config);
+        // 🌟 NEW: Look how clean this DELETE request is now!
+        await api.delete(`/jobs/${jobId}`);
+        
         setJobs(jobs.filter(job => job._id !== jobId));
         toast.success("Job deleted successfully");
       } catch (error) {
@@ -59,15 +60,13 @@ const RecruiterDashboard = () => {
           </Link>
         </div>
 
-        {/* ======================================================== */}
-        {/* NEW: DASHBOARD ANALYTICS CHART                           */}
-        {/* ======================================================== */}
+        {/* Analytics Chart */}
         <RecruiterAnalytics />
 
         {/* Section Title for Jobs */}
         <h2 className="text-2xl font-bold text-gray-900 mb-6">My Job Postings</h2>
 
-        {/* LOADING STATE: Skeletons but with the Recruiter layout */}
+        {/* LOADING STATE */}
         {isLoading ? (
           <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
              {[1, 2, 3].map((n) => (

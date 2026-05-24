@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import axios from 'axios';
+import api from '../api/axios'; // 🌟 NEW: Using our clean interceptor!
 import { ArrowLeft, Briefcase, Building, MapPin, DollarSign, FileText, CheckSquare } from 'lucide-react';
 import toast from 'react-hot-toast';
 
@@ -25,13 +25,6 @@ const CreateJob = () => {
     setIsSubmitting(true);
 
     try {
-      const config = {
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${localStorage.getItem('token')}`
-        }
-      };
-
       // Transform comma-separated string into an array, removing empty spaces
       const jobData = {
         ...formData,
@@ -41,7 +34,9 @@ const CreateJob = () => {
           .filter(req => req !== '') 
       };
 
-      await axios.post('http://localhost:3000/api/jobs', jobData, config);
+      // 🌟 NEW: Look how incredibly simple this POST request is now!
+      await api.post('/jobs', jobData);
+      
       toast.success('Job posted successfully!');
       navigate('/recruiter/dashboard'); 
     } catch (error) {
