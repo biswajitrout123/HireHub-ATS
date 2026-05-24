@@ -18,7 +18,7 @@ const Home = () => {
     const fetchJobs = async () => {
       setIsLoading(true);
       try {
-        const response = await axios.get('http://localhost:3000/api/jobs', { params: filters });
+        const response = await axios.get(import.meta.env.VITE_API_URL + '/api/jobs', { params: filters });
         setJobs(response.data.data);
       } catch (error) {
         console.error("Failed to fetch jobs", error);
