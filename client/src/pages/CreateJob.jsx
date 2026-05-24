@@ -4,6 +4,7 @@ import api from '../api/axios'; // 🌟 NEW: Using our clean interceptor!
 import { ArrowLeft, Briefcase, Building, MapPin, DollarSign, FileText, CheckSquare } from 'lucide-react';
 import toast from 'react-hot-toast';
 
+
 const CreateJob = () => {
   const navigate = useNavigate();
   const [isSubmitting, setIsSubmitting] = useState(false);
