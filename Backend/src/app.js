@@ -6,14 +6,23 @@ import applicationRoutes from './modules/applications/application.routes.js';
 
 const app = express();
 
-app.use(cors());
+// 🌟 NEW: Strict CORS Configuration for Production
+app.use(cors({
+  origin: [
+    'http://localhost:5173', // Allows you to keep testing locally
+    'https://hire-hub-ats.vercel.app' // Allows your live Vercel site
+  ],
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  allowedHeaders: ['Content-Type', 'Authorization']
+}));
+
 app.use(express.json());
 
 // API Routes
 app.use('/api/auth', authRoutes);
 app.use('/api/jobs', jobRoutes);
 app.use('/api/applications', applicationRoutes);
-
 
 app.get('/api/health', (req, res) => {
   res.status(200).json({ message: 'Smart Job Portal API is running smoothly! 🚀' });
