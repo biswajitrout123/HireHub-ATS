@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const api = axios.create({
-  // This automatically picks up your Render backend URL from Vercel settings
+  // This automatically connects to your Render backend instead of localhost
   baseURL: import.meta.env.VITE_API_URL + '/api',
 });
 
@@ -12,6 +12,8 @@ api.interceptors.request.use((config) => {
     config.headers.Authorization = `Bearer ${token}`;
   }
   return config;
+}, (error) => {
+  return Promise.reject(error);
 });
 
 export default api;

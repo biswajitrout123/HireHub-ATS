@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import api from '../api/axios'; // 🌟 NEW: Using our clean interceptor!
+import api from '../api/axios';
 import { ArrowLeft, Briefcase, Building, MapPin, DollarSign, FileText, CheckSquare } from 'lucide-react';
 import toast from 'react-hot-toast';
 
