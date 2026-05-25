@@ -1,8 +1,8 @@
 import axios from 'axios';
 
 const api = axios.create({
-  // DELETE the import.meta.env line and paste your REAL Render URL in quotes:
-  baseURL: 'https://YOUR-ACTUAL-RENDER-LINK.onrender.com/api', 
+  // Your REAL Render backend URL!
+  baseURL: 'https://hirehub-ats.onrender.com/api', 
 });
 
 api.interceptors.request.use((config) => {
