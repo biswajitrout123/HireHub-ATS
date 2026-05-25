@@ -1,11 +1,10 @@
 import axios from 'axios';
 
 const api = axios.create({
-  // This automatically connects to your Render backend instead of localhost
-  baseURL: import.meta.env.VITE_API_URL + '/api',
+  // DELETE the import.meta.env line and paste your REAL Render URL in quotes:
+  baseURL: 'https://YOUR-RENDER-BACKEND-URL.onrender.com/api', 
 });
 
-// Interceptor to add the token to every request automatically
 api.interceptors.request.use((config) => {
   const token = localStorage.getItem('token');
   if (token) {

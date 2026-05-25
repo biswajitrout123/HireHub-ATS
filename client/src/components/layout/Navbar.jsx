@@ -1,7 +1,10 @@
 import React, { useState, useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Briefcase, Menu, X, LogOut } from 'lucide-react';
-import { AuthContext } from '../context/AuthContext'; 
+
+import { AuthContext } from '../../context/AuthContext';
+
+
 
 const Navbar = () => {
   const navigate = useNavigate();
