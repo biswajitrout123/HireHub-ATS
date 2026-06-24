@@ -9,8 +9,8 @@
 SmartJobPortal is a production-ready Applicant Tracking System (ATS) built with the MERN stack. It bridges the gap between job seekers and recruiters through a secure, interactive, and data-driven platform. 
 
 ## 🌐 Live Demo
-* **Frontend Application:** [Insert your Vercel Link Here]
-* **Backend API:** [Insert your Render Link Here]
+* **Frontend Application:** [hire-hub-ats.vercel.app]
+* **Backend API:** [https://hirehub-ats.onrender.com]
 
 ## ✨ Key Features
 
